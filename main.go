@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/dumbogo/interest-rate/cmd"
+)
 
 func main() {
-	fmt.Printf("Hello world!\n")
+	cmd.Execute()
 }

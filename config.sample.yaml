@@ -1,0 +1,6 @@
+---
+monthly_invest: 1000
+start_date: 2020-01-01
+end_date: 2021-10-01
+interest: 10
+Tax: 1  # Need to define decimal notation, as some taxes goes to 0.30%
