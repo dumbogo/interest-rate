@@ -36,6 +36,17 @@ func (P *Portfolio) Invest(inv Investment) {
 	P.NetWorth += inv.ReturnAfterTax
 }
 
+// Reinvest reinvest old investment
+func (P *Portfolio) Reinvest(inv Investment) {
+	P.NetWorth -= inv.ReturnAfterTax
+	P.Invest(Investment{
+		StartDate: inv.EndDate,
+		EndDate:   inv.EndDate.AddDate(1, 0, 0),
+		Amount:    inv.ReturnAfterTax,
+		Interest:  inv.Interest,
+	})
+}
+
 // InsertCash adds cash to Cash Portfolio and sums to NetWorth
 func (P *Portfolio) InsertCash(m MXN) {
 	P.Cash += m

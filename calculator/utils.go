@@ -8,7 +8,7 @@ import (
 func searchOutdatedInvestments(investments []Investment, date time.Time) []int {
 	idxs := make([]int, 0)
 	for i, inv := range investments {
-		if date.After(inv.EndDate) {
+		if date.After(inv.EndDate) || date.Equal(inv.EndDate) {
 			idxs = append(idxs, i)
 		}
 	}

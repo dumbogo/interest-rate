@@ -34,16 +34,24 @@ func TestRefresh(t *testing.T) {
 			Return:         110,
 			ReturnAfterTax: 110,
 		},
+		{
+			StartDate:      onlyTime(time.RFC3339, "2020-04-02T00:00:00Z"),
+			EndDate:        onlyTime(time.RFC3339, "2021-04-02T00:00:00Z"),
+			Amount:         100,
+			Interest:       10,
+			Return:         110,
+			ReturnAfterTax: 110,
+		},
 	}
-	expected := make([]Investment, 2)
+	expected := make([]Investment, 3)
 	expectedCurrentInvestments := make([]Investment, 1)
-	copy(expected, invs[:2])
-	copy(expectedCurrentInvestments, invs[2:])
+	copy(expected, invs[:3])
+	copy(expectedCurrentInvestments, invs[3:])
 	testCase := Portfolio{
 		Investments: invs,
 	}
-	actual := testCase.Refresh(onlyTime(time.RFC3339, "2021-03-01T00:00:00Z"))
-	assert.Equal(t, 2, len(testCase.PastInvestments), "Length difference in PastInvestments")
+	actual := testCase.Refresh(onlyTime(time.RFC3339, "2021-04-01T00:00:00Z"))
+	assert.Equal(t, 3, len(testCase.PastInvestments), "Length difference in PastInvestments")
 	assert.Equal(t, 1, len(testCase.Investments), "Length difference Investments")
 	assert.EqualValues(t, expected, actual)
 	assert.EqualValues(t, expected, testCase.PastInvestments)
