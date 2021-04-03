@@ -1,7 +1,6 @@
 package calculator
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -52,7 +51,6 @@ func Calculate(config Config) MXN {
 	}
 	currentDate := config.StartDate
 	for ; currentDate.Before(config.EndDateInvestment); currentDate = currentDate.AddDate(0, 1, 0) {
-		fmt.Printf("currentDate: %s\n", currentDate)
 		oldInvestments := portfolio.Refresh(currentDate)
 		for _, oldInv := range oldInvestments {
 			portfolio.Reinvest(oldInv)
@@ -65,12 +63,9 @@ func Calculate(config Config) MXN {
 			Interest:  config.Interest,
 		}
 		portfolio.Invest(newInvestment)
-		fmt.Printf("==================================================\n")
 	}
 	for ; currentDate.Before(config.EndDate); currentDate = currentDate.AddDate(0, 1, 0) {
 		portfolio.InsertCash(config.MonthlyInvest)
-		fmt.Printf("currentDate: %s\n", currentDate)
-		fmt.Printf("==================================================\n")
 	}
 	return portfolio.NetWorth
 }
